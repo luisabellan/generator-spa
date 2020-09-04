@@ -1,0 +1,30 @@
+{
+  "name": "generator-spa",
+  "version": "0.0.1",
+  "description": "A yeoman generator for the Labs SPA scaffolding",
+  "main": "index.js",
+  "files": [
+    "generators"
+  ],
+  "scripts": {
+    "lint": "npx eslint 'src/**/*.{js,jsx}'"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "yeoman-generator": "^4.11.0",
+    "labs-spa-starter": "Lambda-School-Labs/labs-spa-starter#1.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "kleur": "^4.1.1",
+    "prettier": "^2.1.1",
+    "yeoman-test": "^3.0.0"
+  }
+}
