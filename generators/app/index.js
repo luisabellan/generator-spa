@@ -52,9 +52,41 @@ module.exports = class extends Generator {
     };
     this.templateFiles = [].concat(defaultFileList);
     this.removePackages = ['kleur', 'yaml', 'prompts'];
+
+    this.argument('name', {
+      type: String,
+      desc: 'Name of Project',
+    });
+
+    this.option('program-name', {
+      type: String,
+      alias: 'p',
+      desc: 'Which program will this be used for: "bw" or "labs"',
+    });
   }
 
-  initializing() {}
+  _removePrompt(name) {
+    prompts.splice(
+      prompts.findIndex((element) => name === element.name),
+      1
+    );
+    return prompts;
+  }
+  _replacePromptsFromOptions(optionMaps) {
+    optionMaps.forEach((map) => {
+      if (this.options[map.name]) {
+        this.initialData[map.prompt] = this.options[map.name];
+        this._removePrompt(map.prompt);
+      }
+    });
+  }
+
+  initializing() {
+    this._replacePromptsFromOptions([
+      { name: 'name', prompt: 'projectName' },
+      { name: 'program-name', prompt: 'program' },
+    ]);
+  }
 
   prompting() {
     this.log(
@@ -65,7 +97,7 @@ module.exports = class extends Generator {
 
     return this.prompt(prompts).then((props) => {
       this.answers = props;
-      this.projectDirName = props.projectName + '-fe';
+      this.projectDirName = (this.initialData.projectName || props.projectName) + '-fe';
       this.data = Object.assign({}, this.initialData, this.answers);
     });
   }
