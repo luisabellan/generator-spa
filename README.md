@@ -11,9 +11,19 @@ all configurations are:
 - github ci/actions workflow config
 - git hook enforced linting using Husky
 
+## CLI Examples
+
+Create a SPA app for the labs 27 gigantic product
+
+`labs spa labs27-gigantic`
+
+Create a SPA app for the Labs 26 gigantic product with the `labs` program option
+
+`labs spa labs26-gigantic --program-name=labs`
+
 ## Prompts / Options
 
-The following options will provide additional configuration and examples
+The following prompts will provide additional configuration and examples
 
 ### Does your team have Data Science members?
 
