@@ -25,7 +25,7 @@ Create a SPA app for the Labs 26 gigantic product with the `labs` program option
 
 The following prompts will provide additional configuration and examples
 
-### Does your team have Data Science members?
+### Does your team have Data Science members
 
 If the answer is `Y` then the following items will be added to the project:
 

@@ -97,7 +97,8 @@ module.exports = class extends Generator {
 
     return this.prompt(prompts).then((props) => {
       this.answers = props;
-      this.projectDirName = (this.initialData.projectName || props.projectName) + '-fe';
+      this.projectDirName =
+        (this.initialData.projectName || props.projectName) + '-fe';
       this.data = Object.assign({}, this.initialData, this.answers);
     });
   }
