@@ -3,49 +3,10 @@ const klr = require('kleur');
 const fs = require('fs');
 const defaultFileList = require('./default-templates');
 
-const prompts = [
-  {
-    type: 'input',
-    name: 'projectName',
-    message: 'Enter the project name.',
-    default: 'labs-spa-project',
-    store: true,
-  },
-  {
-    type: 'input',
-    name: 'githubRepo',
-    message: 'Enter the Labs github repo name.',
-    default: 'labs-project1',
-    store: true,
-  },
-  {
-    type: 'confirm',
-    name: 'hasDS',
-    message: 'Does your project have Data Science team members?',
-    default: false,
-  },
-  {
-    type: 'list',
-    name: 'program',
-    message: 'What is the project type?',
-    choices: [
-      {
-        name: 'Buid Weeks',
-        value: 'bw',
-      },
-      {
-        name: 'Labs',
-        value: 'labs',
-      },
-    ],
-    default: 'labs',
-    store: true,
-  },
-];
-
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
+    this.prompts = [];
     this.initialData = {
       includeCodeAnalysisBadge: false,
       includeCoverageBadge: false,
@@ -58,44 +19,95 @@ module.exports = class extends Generator {
       desc: 'Name of Project',
     });
 
-    this.option('program-name', {
-      type: String,
-      alias: 'p',
-      desc: 'Which program will this be used for: "bw" or "labs"',
-    });
+    this._addPromptOption(
+      'program',
+      {
+        type: 'list',
+        message: 'What is the project type?',
+        choices: [
+          {
+            name: 'Buid Weeks',
+            value: 'bw',
+          },
+          {
+            name: 'Labs',
+            value: 'labs',
+          },
+        ],
+        default: 'labs',
+        store: true,
+      },
+      {
+        type: String,
+        alias: 'p',
+        desc: 'Which program will this be used for: "bw" or "labs"',
+      }
+    );
+    this._addPromptOption(
+      'repoName',
+      {
+        type: 'input',
+        message: 'Enter the Labs github repo name.',
+        default: 'labs-project1',
+        store: true,
+      },
+      {
+        type: String,
+        alias: 'r',
+        desc: 'name of your github repo',
+      }
+    );
+    this._addPromptOption(
+      'hasDS',
+      {
+        type: 'confirm',
+        message: 'Does your project have Data Science team members?',
+        default: false,
+      },
+      {
+        type: Boolean,
+        alias: 'd',
+        desc: 'project has DS team members',
+      }
+    );
+  }
+
+  _addPromptOption(name, promptOpts, optionOpts) {
+    optionOpts.name = promptOpts.name = name;
+    if (optionOpts.alias) promptOpts.alias = optionOpts.alias;
+    this.option(name, optionOpts);
+    this.prompts.push(promptOpts);
   }
 
   _removePrompt(name) {
-    prompts.splice(
-      prompts.findIndex((element) => name === element.name),
+    this.prompts.splice(
+      this.prompts.findIndex((element) => name === element.name),
       1
     );
-    return prompts;
-  }
-  _replacePromptsFromOptions(optionMaps) {
-    optionMaps.forEach((map) => {
-      if (this.options[map.name]) {
-        this.initialData[map.prompt] = this.options[map.name];
-        this._removePrompt(map.prompt);
-      }
-    });
+    return this.prompts;
   }
 
   initializing() {
-    this._replacePromptsFromOptions([
-      { name: 'name', prompt: 'projectName' },
-      { name: 'program-name', prompt: 'program' },
-    ]);
-  }
-
-  prompting() {
     this.log(
       `Welcome to the ${klr.red('Labs')} ${klr.blue(
         'SPA'
-      )} generator!\nLets get started.`
+      )} generator!\nLets get started.\nInitializing for project ${klr.bold(
+        this.options.name
+      )}`
     );
+    var promptsToRemove = [];
+    this.prompts.forEach((prompt) => {
+      if (this.options[prompt.name] || this.options[prompt.alias]) {
+        this.initialData[prompt.name] = this.options[prompt.name];
+        promptsToRemove.push(prompt.name);
+      }
+    });
+    promptsToRemove.forEach((prompt) => this._removePrompt(prompt));
+    this.initialData.projectName = this.options.name;
+  }
 
-    return this.prompt(prompts).then((props) => {
+  prompting() {
+    return this.prompt(this.prompts).then((props) => {
       this.answers = props;
       this.projectDirName =
         (this.initialData.projectName || props.projectName) + '-fe';
