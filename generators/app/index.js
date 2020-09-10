@@ -1,25 +1,26 @@
-const Generator = require('yeoman-generator');
+const BaseGenerator = require('../baseGenerator');
 const klr = require('kleur');
 const fs = require('fs');
 const defaultFileList = require('./default-templates');
+var path = require('path');
 
-module.exports = class extends Generator {
+module.exports = class extends BaseGenerator {
   constructor(args, opts) {
     super(args, opts);
-    this.prompts = [];
+    const me = this;
     this.initialData = {
       includeCodeAnalysisBadge: false,
       includeCoverageBadge: false,
     };
     this.templateFiles = [].concat(defaultFileList);
     this.removePackages = ['kleur', 'yaml', 'prompts'];
-
+    
     this.argument('name', {
       type: String,
       desc: 'Name of Project',
     });
 
-    this._addPromptOption(
+    this._makePromptOption(
       'program',
       {
         type: 'list',
@@ -43,7 +44,7 @@ module.exports = class extends Generator {
         desc: 'Which program will this be used for: "bw" or "labs"',
       }
     );
-    this._addPromptOption(
+    this._makePromptOption(
       'repoName',
       {
         type: 'input',
@@ -57,7 +58,7 @@ module.exports = class extends Generator {
         desc: 'name of your github repo',
       }
     );
-    this._addPromptOption(
+    this._makePromptOption(
       'hasDS',
       {
         type: 'confirm',
@@ -72,21 +73,6 @@ module.exports = class extends Generator {
     );
   }
 
-  _addPromptOption(name, promptOpts, optionOpts) {
-    optionOpts.name = promptOpts.name = name;
-    if (optionOpts.alias) promptOpts.alias = optionOpts.alias;
-    this.option(name, optionOpts);
-    this.prompts.push(promptOpts);
-  }
-
-  _removePrompt(name) {
-    this.prompts.splice(
-      this.prompts.findIndex((element) => name === element.name),
-      1
-    );
-    return this.prompts;
-  }
-
   initializing() {
     this.log(
       `Welcome to the ${klr.red('Labs')} ${klr.blue(
@@ -95,14 +81,7 @@ module.exports = class extends Generator {
         this.options.name
       )}`
     );
-    var promptsToRemove = [];
-    this.prompts.forEach((prompt) => {
-      if (this.options[prompt.name] || this.options[prompt.alias]) {
-        this.initialData[prompt.name] = this.options[prompt.name];
-        promptsToRemove.push(prompt.name);
-      }
-    });
-    promptsToRemove.forEach((prompt) => this._removePrompt(prompt));
+    this._removePrompts();
     this.initialData.projectName = this.options.name;
   }
 
@@ -116,9 +95,7 @@ module.exports = class extends Generator {
   }
 
   configuring() {
-    if (!fs.existsSync(this.projectDirName)) {
-      fs.mkdirSync(this.projectDirName);
-    }
+    this.destinationRoot(path.join(this.destinationPath(), '/' + this.projectDirName));
     if (this.program === 'labs') {
       this.data.includeCodeAnalysisBadge = true;
       this.data.includeCoverageBadge = true;
@@ -143,8 +120,11 @@ module.exports = class extends Generator {
 
   writing() {
     const ignorePaths = [];
-    this.log(this.data);
-    this.destinationRoot(this.projectDirName);
+    
+    if (!fs.existsSync(this.projectDirName)) {
+      fs.mkdirSync(this.projectDirName);
+    }
+    process.chdir(path.join(process.cwd(), this.projectDirName));
     if (this.data.program === 'labs') {
       this.templateFiles.push({ src: '.storybook/**', dest: '.storybook' });
       this.templateFiles.push({ src: 'amplify.yml' });
@@ -166,7 +146,7 @@ module.exports = class extends Generator {
     if (!this.data.hasDS) {
       ignorePaths.push('**/ExampleDataViz/**');
     }
-    this.log('ignorePaths', ignorePaths);
+
     this.templateFiles.forEach((file) => {
       return this.fs.copyTpl(
         this.templatePath(file.src),
