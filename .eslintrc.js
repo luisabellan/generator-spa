@@ -15,8 +15,7 @@ module.exports = {
   },
   overrides: [
     {
-      excludedFiles: '**/templates/*',
-      files: ['generators/**/*.js'],
+      excludedFiles: '**/templates/**',
     },
   ],
 };
