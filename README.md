@@ -21,6 +21,11 @@ Create a SPA app for the Labs 26 gigantic product with the `labs` program option
 
 `labs spa labs26-gigantic --program-name=labs`
 
+When only the project name argument is provided then you will be prompted
+for more info.
+
+![Labs SPA prompts](spa-prompts.png)
+
 ## Prompts / Options
 
 The following prompts will provide additional configuration and examples
@@ -44,3 +49,14 @@ The program choices are `BW` and `Labs`
   - [Ant Design](https://docs.labs.lambdaschool.com/labs-spa-starter/styling-with-ant-design) configuration and theme
   - [Storybook](https://docs.labs.lambdaschool.com/labs-spa-starter/storybook) documentation
   - [AWS Amplify](https://docs.labs.lambdaschool.com/labs-spa-starter/untitled) config file
+
+## Enter your Github repo HTTPS git url
+
+This is the git https url (eg https://github.com/Lambda-School-Labs/gen-test-git.git)
+
+When this value is provided then the generator will do the following:
+
+- init the git repo with this URL as the remote
+- create a main branch
+- stage and commit the generated files
+- push the branch to github
