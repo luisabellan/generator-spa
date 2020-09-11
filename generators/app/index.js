@@ -85,7 +85,7 @@ module.exports = class extends BaseGenerator {
     this.initialData.projectName = this.options.name;
     this.projectDirName = this.initialData.projectName + '-fe';
     this.destinationRoot(path.join(this.destinationPath(), '/' + this.projectDirName));
-    this.options.repoUrl = (this.options.repoUrl === 'true' ? false : this.options.repoUrl);
+    this.options.repoUrl = (this.options.repoUrl === 'true' || this.options.repoUrl === '') ? false : this.options.repoUrl;
   }
 
   prompting() {
@@ -154,8 +154,6 @@ module.exports = class extends BaseGenerator {
         { globOptions: { ignore: ignorePaths } }
       );
     });
-
-
   }
 
   installing() {
@@ -163,16 +161,19 @@ module.exports = class extends BaseGenerator {
   }
 
   end() {
-    if (this.options.repoUrl) {
-      this.log('================\nNow lets setup the git repo and make an initial commit.\n\n');
+    if (!fs.existsSync('.git')) {
+      this.log(`================\nNow lets setup the git repo for ${this.options.repoUrl}.\n\n`);
 
       this.spawnCommandSync('git', ['init']);
       this.spawnCommandSync('git', ['checkout', '-b', 'main']);
-      this.spawnCommandSync('git', ['remote', 'add', 'origin', this.options.repoUrl]);
       this.spawnCommandSync('git', ['add', '--all']);
       this.spawnCommandSync('git', ['commit', '-m', '"initial commit from labs spa generator"']);
-      this.log('pushing repo to github');
-      this.spawnCommandSync('git', ['push', '-u', 'origin', 'main']);
+
+      if (this.options.repoUrl) {
+        this.spawnCommandSync('git', ['remote', 'add', 'origin', this.options.repoUrl]);
+        this.log('pushing repo to github');
+        this.spawnCommandSync('git', ['push', '-u', 'origin', 'main']);
+      }
     }
   }
 };
