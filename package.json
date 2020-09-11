@@ -12,8 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "yeoman-generator": "^4.11.0",
-    "labs-spa-starter": "Lambda-School-Labs/labs-spa-starter#1.0.0"
+    "@lambdalabs/base-generator": "^1.0.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.11.0",
