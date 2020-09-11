@@ -43,22 +43,22 @@ function App() {
   return (
     <% if (program === 'labs') { %>
     <Security {...config} onAuthRequired={authHandler}
-      <%}%><Switch><% if (program === 'labs') { %>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/implicit/callback" component={LoginCallback} /><% } else { %>
-        <Route path="/landing" component={LandingPage} /><% } %>
-        {/* any of the routes you need secured should be registered as SecureRoutes */}
-        <<%= (program === 'labs') ? 'SecureRoute' : 'Route' ;%>
-          path="/"
-          exact
-          component={() => <<%= (program === 'labs') ? 'HomePage LoadingComponent={LoadingComponent}' : 'LandingPage';%> />}
-        />
-        <<%= (program === 'labs') ? 'SecureRoute' : 'Route' ;%> path="/example-list" component={ExampleListPage} />
-        <% if (program === 'labs') { %>
-        <SecureRoute path="/profile-list" component={ProfileListPage} /><% } %><% if (hasDS) { %>
-        <SecureRoute path="/datavis" component={ExampleDataViz} />
-        <% } %><Route component={NotFoundPage} />
-      </Switch>
+    <%}%><Switch><% if (program === 'labs') { %>
+      <Route path="/login" component={LoginPage} />
+      <Route path="/implicit/callback" component={LoginCallback} /><% } else { %>
+      <Route path="/landing" component={LandingPage} /><% } %>
+      {/* any of the routes you need secured should be registered as SecureRoutes */}
+      <<%= (program === 'labs') ? 'SecureRoute' : 'Route' ;%>
+        path="/"
+        exact
+        component={() => <<%= (program === 'labs') ? 'HomePage LoadingComponent={LoadingComponent}' : 'LandingPage';%> />}
+      />
+      <<%= (program === 'labs') ? 'SecureRoute' : 'Route' ;%> path="/example-list" component={ExampleListPage} />
+      <% if (program === 'labs') { %>
+      <SecureRoute path="/profile-list" component={ProfileListPage} /><% } %><% if (hasDS) { %>
+      <SecureRoute path="/datavis" component={ExampleDataViz} />
+      <% } %><Route component={NotFoundPage} />
+    </Switch>
     <% if (program === 'labs') { %></Security><%}%>
   );
 }
