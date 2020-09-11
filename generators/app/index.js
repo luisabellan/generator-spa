@@ -1,4 +1,4 @@
-const BaseGenerator = require('../baseGenerator');
+const BaseGenerator = require('@lambdalabs/base-generator');
 const klr = require('kleur');
 const fs = require('fs');
 const defaultFileList = require('./default-templates');
@@ -7,7 +7,6 @@ var path = require('path');
 module.exports = class extends BaseGenerator {
   constructor(args, opts) {
     super(args, opts);
-    const me = this;
     this.initialData = {
       includeCodeAnalysisBadge: false,
       includeCoverageBadge: false,
@@ -83,6 +82,9 @@ module.exports = class extends BaseGenerator {
     );
     this._removePrompts();
     this.initialData.projectName = this.options.name;
+    this.projectDirName = this.initialData.projectName + '-fe';
+    this.destinationRoot(path.join(this.destinationPath(), '/' + this.projectDirName));
+    // process.chdir(this.destinationPath());
   }
 
   prompting() {
@@ -95,7 +97,6 @@ module.exports = class extends BaseGenerator {
   }
 
   configuring() {
-    this.destinationRoot(path.join(this.destinationPath(), '/' + this.projectDirName));
     if (this.program === 'labs') {
       this.data.includeCodeAnalysisBadge = true;
       this.data.includeCoverageBadge = true;
@@ -121,10 +122,6 @@ module.exports = class extends BaseGenerator {
   writing() {
     const ignorePaths = [];
     
-    if (!fs.existsSync(this.projectDirName)) {
-      fs.mkdirSync(this.projectDirName);
-    }
-    process.chdir(path.join(process.cwd(), this.projectDirName));
     if (this.data.program === 'labs') {
       this.templateFiles.push({ src: '.storybook/**', dest: '.storybook' });
       this.templateFiles.push({ src: 'amplify.yml' });
@@ -156,6 +153,8 @@ module.exports = class extends BaseGenerator {
         { globOptions: { ignore: ignorePaths } }
       );
     });
+
+
   }
 
   installing() {}

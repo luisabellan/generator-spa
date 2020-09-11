@@ -1,4 +1,4 @@
-const BaseGenerator = require('../baseGenerator');
+const BaseGenerator = require('@lambdalabs/base-generator');
 const klr = require('kleur');
 const fs = require('fs');
 
@@ -58,9 +58,9 @@ module.exports = class extends BaseGenerator {
     this.destinationRoot(`src/components/pages/${this.projectDirName}`);
 
     [
-      { src: 'container.js' },
+      { src: 'container.js', dest: this.initialData.pageContainerName },
       { src: 'index.js' },
-      { src: 'render.js' },
+      { src: 'render.js', dest: this.initialData.pageRenderName },
     ].forEach((file) => {
       return this.fs.copyTpl(
         this.templatePath(file.src),
