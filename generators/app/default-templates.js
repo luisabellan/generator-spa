@@ -5,6 +5,7 @@ module.exports = [
   { src: '.env.sample', dest: '.env' },
   { src: '.eslintrc' },
   { src: '.prettierrc' },
+  { src: '.gitignore' },
   { src: '.env.sample', dest: '.env' },
   { src: 'jestConfig.js' },
   { src: '_craco.config.js', dest: 'craco.config.js' },
