@@ -3,6 +3,7 @@ const klr = require('kleur');
 const fs = require('fs');
 const defaultFileList = require('./default-templates');
 var path = require('path');
+const { exit } = require('process');
 
 module.exports = class extends BaseGenerator {
   constructor(args, opts) {
@@ -44,17 +45,17 @@ module.exports = class extends BaseGenerator {
       }
     );
     this._makePromptOption(
-      'repoName',
+      'repoUrl',
       {
         type: 'input',
-        message: 'Enter the Labs github repo name.',
+        message: 'What is your Github repo HTTPS git url',
         default: 'labs-project1',
         store: true,
       },
       {
         type: String,
         alias: 'r',
-        desc: 'name of your github repo',
+        desc: 'The Github repo HTTPS git url. eg, https://github.com/lambda-school-labs/labsNN-productA-teamB-fe',
       }
     );
     this._makePromptOption(
@@ -65,7 +66,7 @@ module.exports = class extends BaseGenerator {
         default: false,
       },
       {
-        type: Boolean,
+        type: (val) => { return (val==='false' ? false : true)},
         alias: 'd',
         desc: 'project has DS team members',
       }
@@ -74,7 +75,7 @@ module.exports = class extends BaseGenerator {
 
   initializing() {
     this.log(
-      `Welcome to the ${klr.red('Labs')} ${klr.blue(
+      `Welcome to the ${klr.red('Labs')} ${klr.bold(
         'SPA'
       )} generator!\nLets get started.\nInitializing for project ${klr.bold(
         this.options.name
@@ -84,7 +85,7 @@ module.exports = class extends BaseGenerator {
     this.initialData.projectName = this.options.name;
     this.projectDirName = this.initialData.projectName + '-fe';
     this.destinationRoot(path.join(this.destinationPath(), '/' + this.projectDirName));
-    // process.chdir(this.destinationPath());
+    this.options.repoUrl = (this.options.repoUrl === 'true' ? false : this.options.repoUrl);
   }
 
   prompting() {
@@ -159,5 +160,19 @@ module.exports = class extends BaseGenerator {
 
   installing() {
     this.npmInstall();
+  }
+
+  end() {
+    if (this.options.repoUrl) {
+      this.log('================\nNow lets setup the git repo and make an initial commit.\n\n');
+
+      this.spawnCommandSync('git', ['init']);
+      this.spawnCommandSync('git', ['checkout', '-b', 'main']);
+      this.spawnCommandSync('git', ['remote', 'add', 'origin', this.options.repoUrl]);
+      this.spawnCommandSync('git', ['add', '--all']);
+      this.spawnCommandSync('git', ['commit', '-m', '"initial commit from labs spa generator"']);
+      this.log('pushing repo to github');
+      this.spawnCommandSync('git', ['push', '-u', 'origin', 'main']);
+    }
   }
 };
