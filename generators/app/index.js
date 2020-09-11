@@ -49,7 +49,7 @@ module.exports = class extends BaseGenerator {
       {
         type: 'input',
         message: 'Enter your Github repo HTTPS git url (https://github.com/user/repo-name)',
-        default: 'labs-project1',
+        default: '',
         store: true,
       },
       {

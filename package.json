@@ -1,16 +1,24 @@
 {
-  "name": "generator-spa",
-  "version": "0.0.1",
+  "name": "@lambdalabs/generator-spa",
+  "version": "0.9.3",
   "description": "A yeoman generator for the Labs SPA scaffolding",
   "main": "index.js",
   "files": [
-    "generators"
+    "app",
+    "page"
   ],
+  "keywords": ["yeoman-generator"],
   "scripts": {
     "lint": "npx eslint 'src/**/*.{js,jsx}'"
   },
-  "author": "",
+  "author": "Lambda Labs",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lambda-School-Labs/generator-spa"
+  },
+  "homepage": "https://github.com/Lambda-School-Labs/generator-spa",
+  "bugs": "https://github.com/Lambda-School-Labs/generator-spa/issues",
   "dependencies": {
     "@lambdalabs/base-generator": "^1.0.0"
   },
