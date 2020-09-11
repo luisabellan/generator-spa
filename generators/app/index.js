@@ -157,5 +157,7 @@ module.exports = class extends BaseGenerator {
 
   }
 
-  installing() {}
+  installing() {
+    this.npmInstall();
+  }
 };
