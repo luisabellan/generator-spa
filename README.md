@@ -26,6 +26,26 @@ for more info.
 
 ![Labs SPA prompts](spa-prompts.png)
 
+## Usage
+
+``` bash
+Usage:
+  yo spa:app <name> [options]
+
+Options:
+  -h,   --help           # Print the generator's options and usage
+        --skip-cache     # Do not remember prompt answers                                                                     Default: false
+        --skip-install   # Do not automatically install dependencies                                                          Default: false
+        --force-install  # Fail on install dependencies error                                                                 Default: false
+        --ask-answered   # Show prompts for already configured options                                                        Default: false
+  -p,   --program        # Which program will this be used for: "bw" or "labs"
+  -r,   --repoUrl        # The Github repo HTTPS git url. eg, https://github.com/lambda-school-labs/labsNN-productA-teamB-fe
+  -d,   --hasDS          # project has DS team members
+
+Arguments:
+  name  # Name of Project  Type: String  Required: true
+```
+
 ## Prompts / Options
 
 The following prompts will provide additional configuration and examples
