@@ -20,57 +20,9 @@ module.exports = class extends BaseGenerator {
       desc: 'Name of Project',
     });
 
-    this._makePromptOption(
-      'program',
-      {
-        type: 'list',
-        message: 'What is the project type?',
-        choices: [
-          {
-            name: 'Buid Weeks',
-            value: 'bw',
-          },
-          {
-            name: 'Labs',
-            value: 'labs',
-          },
-        ],
-        default: 'labs',
-        store: true,
-      },
-      {
-        type: String,
-        alias: 'p',
-        desc: 'Which program will this be used for: "bw" or "labs"',
-      }
-    );
-    this._makePromptOption(
-      'repoUrl',
-      {
-        type: 'input',
-        message: 'Enter your Github repo HTTPS git url (https://github.com/user/repo-name)',
-        default: '',
-        store: true,
-      },
-      {
-        type: String,
-        alias: 'r',
-        desc: 'The Github repo HTTPS git url. eg, https://github.com/lambda-school-labs/labsNN-productA-teamB-fe',
-      }
-    );
-    this._makePromptOption(
-      'hasDS',
-      {
-        type: 'confirm',
-        message: 'Does your project have Data Science team members?',
-        default: false,
-      },
-      {
-        type: (val) => { return (val==='false' ? false : true)},
-        alias: 'd',
-        desc: 'project has DS team members',
-      }
-    );
+    this._makeProgram();
+    this._makeHasDS();
+    this._makeRepoUrl();
   }
 
   initializing() {

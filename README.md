@@ -30,7 +30,7 @@ for more info.
 
 ``` bash
 Usage:
-  yo spa:app <name> [options]
+  labs spa:app <name> [options]
 
 Options:
   -h,   --help           # Print the generator's options and usage
