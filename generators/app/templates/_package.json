@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "license": "MIT",
-  "repository": "github:Lambda-School-Labs/labs-spa-starter",
+  "repository": "github:Lambda-School-Labs/<%= projectName %>",
   "dependencies": {
     "@craco/craco": "^5.6.4",<% if (program === 'labs') { %>
     "@okta/okta-react": "^3.0.2",
