@@ -20,7 +20,7 @@
   "homepage": "https://github.com/Lambda-School-Labs/generator-spa",
   "bugs": "https://github.com/Lambda-School-Labs/generator-spa/issues",
   "dependencies": {
-    "@lambdalabs/base-generator": "^1.0.0"
+    "@lambdalabs/base-generator": "^1.0.3"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.11.0",
