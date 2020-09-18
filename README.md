@@ -19,7 +19,7 @@ Create a SPA app for the labs 27 gigantic product
 
 Create a SPA app for the Labs 26 gigantic product with the `labs` program option
 
-`labs spa labs26-gigantic --program-name=labs`
+`labs spa labs26-gigantic --program=labs`
 
 When only the project name argument is provided then you will be prompted
 for more info.
@@ -52,12 +52,24 @@ The following prompts will provide additional configuration and examples
 
 ### Does your team have Data Science members
 
+#### Option
+
+`--hasDS` or `-d` - passing `false` to the option will turn it off. (`--hasDS=false`)
+
+#### Prompt
+
 If the answer is `Y` then the following items will be added to the project:
 
 - modules `plotly.js` and `react-plotly.js`
 - an example data visualization page component `ExampleDataViz` using a DS API.
 
 ### Program
+
+#### Option
+
+`--program` or `-p` - pass `labs` or `bw`
+
+#### Prompt
 
 The program choices are `BW` and `Labs`
 
@@ -71,6 +83,12 @@ The program choices are `BW` and `Labs`
   - [AWS Amplify](https://docs.labs.lambdaschool.com/labs-spa-starter/untitled) config file
 
 ## Enter your Github repo HTTPS git url
+
+#### Option
+
+`--repoUrl` or `-r` - leave empty (`-r`) to turn off
+
+#### Prompt
 
 This is the git https url (eg https://github.com/Lambda-School-Labs/gen-test-git.git)
 
