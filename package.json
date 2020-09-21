@@ -1,11 +1,11 @@
 {
   "name": "@lambdalabs/generator-spa",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "A yeoman generator for the Labs SPA scaffolding",
-  "main": "index.js",
   "files": [
-    "app",
-    "page"
+    "generators",
+    "README.md",
+    "spa-prompts.png"
   ],
   "keywords": ["yeoman-generator"],
   "scripts": {
