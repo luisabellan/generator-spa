@@ -26,11 +26,15 @@ for more info.
 
 ![Labs SPA prompts](spa-prompts.png)
 
-## Usage
+# Generators
+
+## App
+
+This is the default generator that will create the entire project.
 
 ``` bash
 Usage:
-  labs spa:app <name> [options]
+  labs @lambdalabs/spa <name> [options]
 
 Options:
   -h,   --help           # Print the generator's options and usage
@@ -46,30 +50,30 @@ Arguments:
   name  # Name of Project  Type: String  Required: true
 ```
 
-## Prompts / Options
+### Prompts / Options
 
 The following prompts will provide additional configuration and examples
 
-### Does your team have Data Science members
+#### Does your team have Data Science members
 
-#### Option
+##### Option
 
 `--hasDS` or `-d` - passing `false` to the option will turn it off. (`--hasDS=false`)
 
-#### Prompt
+##### Prompt
 
 If the answer is `Y` then the following items will be added to the project:
 
 - modules `plotly.js` and `react-plotly.js`
 - an example data visualization page component `ExampleDataViz` using a DS API.
 
-### Program
+#### Program
 
-#### Option
+##### Option
 
 `--program` or `-p` - pass `labs` or `bw`
 
-#### Prompt
+##### Prompt
 
 The program choices are `BW` and `Labs`
 
@@ -82,13 +86,13 @@ The program choices are `BW` and `Labs`
   - [Storybook](https://docs.labs.lambdaschool.com/labs-spa-starter/storybook) documentation
   - [AWS Amplify](https://docs.labs.lambdaschool.com/labs-spa-starter/untitled) config file
 
-### Enter your Github repo HTTPS git url
+#### Enter your Github repo HTTPS git url
 
-#### Option
+##### Option
 
 `--repoUrl` or `-r` - leave empty (`-r`) to turn off
 
-#### Prompt
+##### Prompt
 
 This is the git https url (eg https://github.com/Lambda-School-Labs/gen-test-git.git)
 
@@ -98,3 +102,42 @@ When this value is provided then the generator will do the following:
 - create a main branch
 - stage and commit the generated files
 - push the branch to github
+
+## Page
+
+This will create a new page component.
+
+``` bash
+Usage:
+  labs @lambdalabs/spa:page <name> [options]
+
+Options:
+  -h,   --help           # Print the generator's options and usage
+        --skip-cache     # Do not remember prompt answers               Default: false
+        --skip-install   # Do not automatically install dependencies    Default: false
+        --force-install  # Fail on install dependencies error           Default: false
+        --ask-answered   # Show prompts for already configured options  Default: false
+  -o,   --useOkta        # include the okta auth state for user info
+
+Arguments:
+  name  # Name of Page  Type: String  Required: true
+```
+
+### Prompts / Options
+
+The following prompts/options will provide additional configuration and examples
+
+#### Does this page need Okta User Info
+
+##### Option
+
+`--useOkta` or `-o` - passing `false` to the option will turn it off. (`--useOkta=false`)
+
+##### Prompt
+
+When this value is provided then the generator will do the following:
+
+- include the `@okta/okta-react` library
+- setup authState and authService
+- get and memoize user info
+- add a loading component
