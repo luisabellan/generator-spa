@@ -15,11 +15,11 @@ all configurations are:
 
 Create a SPA app for the labs 27 gigantic product
 
-`labs spa labs27-gigantic`
+`labs @lambdalabs/spa labs27-gigantic`
 
 Create a SPA app for the Labs 26 gigantic product with the `labs` program option
 
-`labs spa labs26-gigantic --program=labs`
+`labs @lambdalabs/spa labs26-gigantic --program=labs`
 
 When only the project name argument is provided then you will be prompted
 for more info.
