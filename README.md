@@ -82,7 +82,7 @@ The program choices are `BW` and `Labs`
   - [Storybook](https://docs.labs.lambdaschool.com/labs-spa-starter/storybook) documentation
   - [AWS Amplify](https://docs.labs.lambdaschool.com/labs-spa-starter/untitled) config file
 
-## Enter your Github repo HTTPS git url
+### Enter your Github repo HTTPS git url
 
 #### Option
 
