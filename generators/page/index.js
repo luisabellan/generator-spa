@@ -9,7 +9,7 @@ module.exports = class extends BaseGenerator {
 
     this.argument('name', {
       type: String,
-      desc: 'Name of Project',
+      desc: 'Name of Page',
     });
 
     this._makePromptOption(
