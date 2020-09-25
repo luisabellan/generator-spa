@@ -1,6 +1,6 @@
 {
   "name": "@lambdalabs/generator-spa",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "description": "A yeoman generator for the Labs SPA scaffolding",
   "files": [
     "generators",
