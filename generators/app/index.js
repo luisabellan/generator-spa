@@ -97,13 +97,15 @@ module.exports = class extends BaseGenerator {
       ignorePaths.push('**/ExampleDataViz/**');
     }
 
+    const copyOpts = { globOptions: { ignore: ignorePaths } };
+    
     this.templateFiles.forEach((file) => {
       return this.fs.copyTpl(
         this.templatePath(file.src),
         this.destinationPath(file.dest || file.src),
         this.data,
         {},
-        { globOptions: { ignore: ignorePaths } }
+        copyOpts
       );
     });
   }
