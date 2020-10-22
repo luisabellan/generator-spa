@@ -2,6 +2,7 @@ module.exports = [
   { src: '_README.md', dest: 'README.md' },
   { src: 'LICENSE' },
   { src: 'CODE_OF_CONDUCT.md' },
+  { src: '.env.sample', dest: '.env.sample' },
   { src: '.env.sample', dest: '.env' },
   { src: '.eslintrc' },
   { src: '.prettierrc' },
