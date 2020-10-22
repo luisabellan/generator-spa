@@ -15,8 +15,8 @@ import { ExampleListPage } from './components/pages/ExampleList';<% if (program 
 import { LandingPage } from './components/pages/Landing';<% } else { %>
 import { HomePage } from './components/pages/Home';
 import { ProfileListPage } from './components/pages/ProfileList';
-import { LoginPage } from './components/pages/Login';
-import { ExampleDataViz } from './components/pages/ExampleDataViz';
+import { LoginPage } from './components/pages/Login';<% if (hasDS) { %>
+import { ExampleDataViz } from './components/pages/ExampleDataViz';<% } %>
 import { config } from './utils/oktaConfig';<% } %>
 import { LoadingComponent } from './components/common';
 
@@ -42,7 +42,7 @@ function App() {
 
   return (
     <% if (program === 'labs') { %>
-    <Security {...config} onAuthRequired={authHandler}
+    <Security {...config} onAuthRequired={authHandler}>
     <%}%><Switch><% if (program === 'labs') { %>
       <Route path="/login" component={LoginPage} />
       <Route path="/implicit/callback" component={LoginCallback} /><% } else { %>
@@ -55,9 +55,9 @@ function App() {
       />
       <<%= (program === 'labs') ? 'SecureRoute' : 'Route' ;%> path="/example-list" component={ExampleListPage} />
       <% if (program === 'labs') { %>
-      <SecureRoute path="/profile-list" component={ProfileListPage} /><% } %><% if (hasDS) { %>
-      <SecureRoute path="/datavis" component={ExampleDataViz} />
-      <% } %><Route component={NotFoundPage} />
+      <SecureRoute path="/profile-list" component={ProfileListPage} /><% } %>
+      <% if (hasDS) { %><SecureRoute path="/datavis" component={ExampleDataViz} /><% } %>
+      <Route component={NotFoundPage} />
     </Switch>
     <% if (program === 'labs') { %></Security><%}%>
   );
